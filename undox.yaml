@@ -1,9 +1,12 @@
-parent:
-  git:
-    url: https://github.com/undox-rs/undox
-    ref: main
-content_path: docs
 name: theme
+parent:
+  git: https://github.com/undox-rs/undox#main
+content:
+  path: ./docs
+overrides:
+  theme:
+    location:
+      path: .
 nav:
   - Overview: index.md
   - section: Features
