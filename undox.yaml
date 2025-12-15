@@ -1,4 +1,7 @@
-parent: ../..
+parent:
+  git:
+    url: https://github.com/undox-rs/undox
+    ref: main
 content_path: docs
 name: theme
 nav:
