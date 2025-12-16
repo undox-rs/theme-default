@@ -88,8 +88,11 @@
       }
 
       /* Layout */
-      .site-header {
+      .site-header-container {
         border-bottom: 1px solid var(--color-border);
+      }
+
+      .site-header {
         padding: 0 1.5rem;
         height: var(--header-height);
         display: flex;
@@ -99,6 +102,8 @@
         top: 0;
         background: var(--color-bg);
         z-index: 100;
+        max-width: 1400px;
+        margin: 0 auto;
       }
 
       .header-left {
@@ -952,122 +957,124 @@
     </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-left">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
+    <div class="site-header-container">
+      <header class="site-header">
+        <div class="header-left">
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+          <a href="/" class="site-title">
+            {% if theme.logo %} {% if theme.logo.light and theme.logo.dark %}
+            <img
+              src="{{ theme.logo.light | replace(from='./', to='/') }}"
+              alt="{{ site.name }}"
+              class="site-logo site-logo-light"
             />
-          </svg>
-        </button>
-        <a href="/" class="site-title">
-          {% if theme.logo %} {% if theme.logo.light and theme.logo.dark %}
-          <img
-            src="{{ theme.logo.light | replace(from='./', to='/') }}"
-            alt="{{ site.name }}"
-            class="site-logo site-logo-light"
-          />
-          <img
-            src="{{ theme.logo.dark | replace(from='./', to='/') }}"
-            alt="{{ site.name }}"
-            class="site-logo site-logo-dark"
-          />
-          {% elif theme.logo.light %}
-          <img
-            src="{{ theme.logo.light | replace(from='./', to='/') }}"
-            alt="{{ site.name }}"
-            class="site-logo"
-          />
-          {% elif theme.logo.dark %}
-          <img
-            src="{{ theme.logo.dark | replace(from='./', to='/') }}"
-            alt="{{ site.name }}"
-            class="site-logo"
-          />
-          {% else %} {{ site.name }} {% endif %} {% else %} {{ site.name }} {%
-          endif %}
-        </a>
-        {% if sources | length > 1 %}
-        <nav class="source-tabs">
-          {% for source in sources %} {% if not source.is_top_level or not
-          theme.hide_top_level_source %}
-          <a
-            href="{{ source.url }}"
-            class="source-tab{% if source.is_current %} active{% endif %}"
-          >
-            {{ source.name }}
+            <img
+              src="{{ theme.logo.dark | replace(from='./', to='/') }}"
+              alt="{{ site.name }}"
+              class="site-logo site-logo-dark"
+            />
+            {% elif theme.logo.light %}
+            <img
+              src="{{ theme.logo.light | replace(from='./', to='/') }}"
+              alt="{{ site.name }}"
+              class="site-logo"
+            />
+            {% elif theme.logo.dark %}
+            <img
+              src="{{ theme.logo.dark | replace(from='./', to='/') }}"
+              alt="{{ site.name }}"
+              class="site-logo"
+            />
+            {% else %} {{ site.name }} {% endif %} {% else %} {{ site.name }} {%
+            endif %}
           </a>
-          {% endif %} {% endfor %}
-        </nav>
-        {% endif %}
-      </div>
-      <div class="header-controls">
-        {% block header_right %}{% endblock %}
-        <button class="search-button" id="search-button" aria-label="Search">
-          {{ icon(name="search") }}
-          <span>Search...</span>
-          <kbd>/</kbd>
-        </button>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          aria-label="Toggle theme"
-        >
-          <svg
-            class="icon-system"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          {% if sources | length > 1 %}
+          <nav class="source-tabs">
+            {% for source in sources %} {% if not source.is_top_level or not
+            theme.hide_top_level_source %}
+            <a
+              href="{{ source.url }}"
+              class="source-tab{% if source.is_current %} active{% endif %}"
+            >
+              {{ source.name }}
+            </a>
+            {% endif %} {% endfor %}
+          </nav>
+          {% endif %}
+        </div>
+        <div class="header-controls">
+          {% block header_right %}{% endblock %}
+          <button class="search-button" id="search-button" aria-label="Search">
+            {{ icon(name="search") }}
+            <span>Search...</span>
+            <kbd>/</kbd>
+          </button>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle theme"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            />
-          </svg>
-          <svg
-            class="icon-light"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            />
-          </svg>
-          <svg
-            class="icon-dark"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            />
-          </svg>
-          <span class="theme-label">System</span>
-        </button>
-      </div>
-    </header>
+            <svg
+              class="icon-system"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            <svg
+              class="icon-light"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <svg
+              class="icon-dark"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <span class="theme-label">System</span>
+          </button>
+        </div>
+      </header>
+    </div>
 
     <div class="main-wrapper">
       <div class="sidebar-overlay" id="sidebar-overlay"></div>
@@ -1087,11 +1094,9 @@
           </a>
           {% endif %} {% endfor %}
         </div>
-        {% endif %} {% for item in nav %}
-        {% if item.section %}
-        {{ macros::nav_item(item=item, page_url=page.url, depth=0) }}
-        {% else %}
-        {# Top-level link without section wrapper #}
+        {% endif %} {% for item in nav %} {% if item.section %} {{
+        macros::nav_item(item=item, page_url=page.url, depth=0) }} {% else %} {#
+        Top-level link without section wrapper #}
         <div class="nav-section">
           <ul class="nav-list">
             <li class="nav-item">
@@ -1104,8 +1109,7 @@
             </li>
           </ul>
         </div>
-        {% endif %}
-        {% endfor %}
+        {% endif %} {% endfor %}
       </nav>
       {% endblock %}
 
