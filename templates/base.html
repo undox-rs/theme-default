@@ -89,19 +89,19 @@
 
       /* Layout */
       .site-header-container {
+        height: var(--header-height);
         border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        background: var(--color-bg);
+        z-index: 100;
+        top: 0;
       }
 
       .site-header {
         padding: 0 1.5rem;
-        height: var(--header-height);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: sticky;
-        top: 0;
-        background: var(--color-bg);
-        z-index: 100;
         max-width: 1400px;
         margin: 0 auto;
       }
